@@ -1,0 +1,22 @@
+{
+  "name": "coba-nodejs",
+  "version": "1.0.0",
+  "description": "belajar buat project sederhana menggunakan nodejs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariwi1503/belajar-nodejs.git"
+  },
+  "author": "ary",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mariwi1503/belajar-nodejs/issues"
+  },
+  "homepage": "https://github.com/mariwi1503/belajar-nodejs#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
