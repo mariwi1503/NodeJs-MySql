@@ -11,3 +11,5 @@ con.connect((err) => {
     if(err) throw err;
     console.log('connection success')
 })
+
+module.exports = con;

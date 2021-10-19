@@ -1,39 +1,63 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../config/mysql')
 
 router.get('/', (req, res, next) => {
-    res.status(200).json({
-        message: 'method get mahasiswa'
+    const sql = "select * from mahasiswa";
+    db.query(sql, (err, result) => {
+        if(err) throw err;
+
+        res.status(200).json({
+            message: 'Data ditemukan',
+            data: result
+        })
     })
 });
 
 router.post('/', (req, res, next) => {
-    const mahasiswa = {
-        nim: req.body.nim,
-        nama: req.body.nama
-    };
+    const { nim, nama, jurusan } = req.body
+    let sql = "insert into mahasiswa (nim, nama, jurusan) values ('"+nim+"', '"+nama+"', '"+jurusan+"')";
+    db.query(sql, (err, result) => {
+        if(err) throw err;
+    })
     res.status(200).json({
-        message: 'methode post mahasiswa',
-        data: mahasiswa
+        message: 'Data berhasil dibuat'
     })
 });
 
 router.get('/:nim', (req, res, next) => {
-    const nim = req.params.nim
-    res.status(200).json({
-        message: 'mahasiswa ' + nim
-    });
-});
+    const { nim } = req.params
+    const sql = "select * from mahasiswa where nim="+nim;
+    db.query(sql, (err, result) => {
+        if(err) throw err;
 
-router.put('/', (req, res, next) => {
-    res.status(200).json({
-        message: 'method put mahasiswa'
+        res.status(200).json({
+            message: 'Data ditemukan',
+            data: result
+        })
     })
 });
 
-router.delete('/', (req, res, next) => {
+router.put('/:nim', (req, res, next) => {
+    const { nim } = req.params
+    const { nama, jurusan } = req.body
+    let sql = "update mahasiswa set nama = '"+nama+"', jurusan = '"+jurusan+"' where nim ="+nim;
+    db.query(sql, (err, result) => {
+        if(err) throw err;
+    })
     res.status(200).json({
-        message: 'method delete mahasiswa'
+        message: 'Data berhasil diupdate'
+    })
+});
+
+router.delete('/:nim', (req, res, next) => {
+    const { nim } = req.params
+    let sql = "delete from mahasiswa where nim="+nim
+    db.query(sql, (err, result) => {
+        if(err) throw err;
+    })
+    res.status(200).json({
+        message: 'Data berhasil dihapus'
     })
 });
 
